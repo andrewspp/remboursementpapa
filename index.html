@@ -2,7 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Remboursement F. Andrews</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,6 +16,7 @@
             --glass-border: rgba(255, 255, 255, 0.2);
             --error-color: rgba(211, 47, 47, 0.9);
             --success-color: rgba(56, 142, 60, 0.9);
+            --warning-color: rgba(255, 152, 0, 0.9);
             --text-color: #ffffff;
             --text-muted: rgba(255, 255, 255, 0.7);
             --border-thin: 1px solid rgba(255, 255, 255, 0.15);
@@ -25,6 +28,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -54,7 +58,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 1rem 0.75rem;
         }
 
         /* Glassmorphism Styles */
@@ -75,14 +79,14 @@
         }
 
         header {
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             position: relative;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 0.5rem;
@@ -93,7 +97,7 @@
         }
 
         header p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.8;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -101,26 +105,38 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 1.5rem;
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .main-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: 2fr 1fr;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            header {
+                padding: 2rem;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
             }
         }
 
         .card {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             padding-bottom: 0.75rem;
             border-bottom: var(--border-thin);
         }
@@ -131,8 +147,8 @@
         }
 
         .quote-box {
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
             text-align: center;
             position: relative;
         }
@@ -141,6 +157,7 @@
             font-style: italic;
             position: relative;
             z-index: 1;
+            font-size: 0.95rem;
         }
 
         .quote-box::before {
@@ -148,7 +165,7 @@
             position: absolute;
             top: 0;
             left: 20px;
-            font-size: 6rem;
+            font-size: 5rem;
             opacity: 0.1;
             font-family: Georgia, serif;
             line-height: 1;
@@ -156,18 +173,22 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(1, 1fr);
             gap: 1rem;
         }
 
-        @media (max-width: 600px) {
+        @media (min-width: 480px) {
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .quote-box p {
+                font-size: 1rem;
             }
         }
 
         .stat-card {
-            padding: 1.5rem;
+            padding: 1.25rem;
             border-left: 4px solid var(--accent-color);
             background: rgba(41, 98, 255, 0.1);
             backdrop-filter: blur(4px);
@@ -188,7 +209,7 @@
         }
 
         .stat-card p {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
         }
 
@@ -208,9 +229,9 @@
         }
 
         .progress-bar {
-            height: 8px;
+            height: 10px;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            border-radius: 5px;
             overflow: hidden;
             position: relative;
         }
@@ -218,7 +239,7 @@
         .progress-fill {
             height: 100%;
             background: var(--secondary-gradient);
-            border-radius: 4px;
+            border-radius: 5px;
             transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -256,13 +277,15 @@
 
         .form-control {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.9rem;
             background: rgba(255, 255, 255, 0.1);
             border: var(--border-thin);
-            border-radius: 6px;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            font-size: 1rem;
             color: var(--text-color);
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-control:focus {
@@ -272,20 +295,33 @@
             box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
         }
 
+        /* Amélioration des contrôles sur iPhone */
+        input[type="date"], 
+        input[type="number"],
+        input[type="text"] {
+            font-size: 16px; /* Pour éviter le zoom sur iPhone */
+        }
+
         button {
             width: 100%;
             background: var(--secondary-gradient);
             color: white;
             border: none;
-            padding: 0.9rem 1.2rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(41, 98, 255, 0.3);
             position: relative;
             overflow: hidden;
+            -webkit-appearance: none;
+            appearance: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         button:hover {
@@ -317,9 +353,33 @@
             100% { transform: translateX(100%); }
         }
 
+        /* Styles spécifiques pour le bouton de réinitialisation */
+        .danger-button {
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.8), rgba(183, 28, 28, 0.9));
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+            margin-top: 1rem;
+        }
+
+        .danger-button:hover {
+            box-shadow: 0 6px 16px rgba(211, 47, 47, 0.4);
+        }
+
+        .danger-button:active {
+            box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+        }
+
+        /* Table styles optimisées pour mobile */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -1rem;
+            padding: 0 1rem;
+        }
+
         .payments-table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 600px; /* Pour assurer que le tableau a une largeur minimum */
         }
 
         .payments-table th {
@@ -379,25 +439,25 @@
         .loan-details {
             display: flex;
             align-items: center;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
             border-left: 4px solid var(--accent-color);
         }
 
         .loan-details .loan-icon {
-            font-size: 2rem;
-            margin-right: 1.5rem;
+            font-size: 1.75rem;
+            margin-right: 1.25rem;
             color: var(--accent-color);
         }
 
         .loan-details .loan-text h2 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 0.25rem;
         }
 
         .loan-details .loan-text p {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
         }
 
@@ -461,6 +521,13 @@
         .card:nth-child(2) { animation: fadeIn 0.5s ease 0.2s both; }
         .card:nth-child(3) { animation: fadeIn 0.5s ease 0.3s both; }
         .card:nth-child(4) { animation: fadeIn 0.5s ease 0.4s both; }
+
+        /* Séparateur horizontal */
+        hr.divider {
+            border: none; 
+            border-top: var(--border-thin); 
+            margin: 1.5rem 0;
+        }
     </style>
 </head>
 <body>
@@ -525,19 +592,21 @@
 
                 <h3 class="section-header">Historique des transactions</h3>
                 <div class="card glass-card">
-                    <table class="payments-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Référence</th>
-                                <th class="text-right">Montant</th>
-                                <th class="text-right">Solde</th>
-                            </tr>
-                        </thead>
-                        <tbody id="paymentsTableBody">
-                            <!-- Les paiements seront ajoutés ici -->
-                        </tbody>
-                    </table>
+                    <div class="table-container">
+                        <table class="payments-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Référence</th>
+                                    <th class="text-right">Montant</th>
+                                    <th class="text-right">Solde</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTableBody">
+                                <!-- Les paiements seront ajoutés ici -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -559,7 +628,7 @@
                             <label for="paymentReference">Référence (optionnel)</label>
                             <input type="text" id="paymentReference" class="form-control" placeholder="ex: Virement mensuel">
                         </div>
-                        <button type="submit">Enregistrer le paiement</button>
+                        <button type="submit"><i class="fas fa-save"></i> Enregistrer le paiement</button>
                     </form>
                 </div>
 
@@ -578,6 +647,14 @@
                     <div class="form-group">
                         <label>Paiements restants (est.)</label>
                         <p id="paymentsRemaining">—</p>
+                    </div>
+                    
+                    <hr class="divider">
+                    
+                    <div class="form-group">
+                        <button id="resetButton" type="button" class="danger-button">
+                            <i class="fas fa-trash-alt"></i> Réinitialiser les données
+                        </button>
                     </div>
                 </div>
             </div>
@@ -627,14 +704,14 @@
         // Créer les particules en arrière-plan
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 20;
+            const particleCount = 15; // Réduit pour les mobiles
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // Taille aléatoire
-                const size = Math.random() * 20 + 5;
+                const size = Math.random() * 15 + 5;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -665,12 +742,26 @@
             // Créer les particules
             createParticles();
             
-            // Ajouter le premier paiement de 500€
-            addFirstPayment();
+            // Charger les données du localStorage
+            loadData();
+            
+            // Si pas de données, ajouter le premier paiement
+            if (loanData.payments.length === 0) {
+                addFirstPayment();
+            }
             
             // Changer la citation périodiquement
             setInterval(changeQuote, 15000);
+            
+            // Gérer le redimensionnement pour l'orientation mobile
+            window.addEventListener('resize', handleOrientationChange);
+            window.addEventListener('orientationchange', handleOrientationChange);
         });
+
+        function handleOrientationChange() {
+            // Ajuster l'interface si nécessaire lors des changements d'orientation
+            updateUI();
+        }
 
         function addFirstPayment() {
             const today = new Date();
@@ -688,6 +779,9 @@
             
             updateUI();
             showNotification("Premier paiement de 500€ enregistré.");
+            
+            // Sauvegarder les données
+            saveData();
         }
 
         // Fonction pour gérer le formulaire de paiement
@@ -722,6 +816,31 @@
             // Réinitialiser le formulaire
             document.getElementById('paymentAmount').value = '';
             document.getElementById('paymentReference').value = '';
+            
+            // Sauvegarder les données
+            saveData();
+        });
+
+        // Fonction pour réinitialiser les données
+        document.getElementById('resetButton').addEventListener('click', function() {
+            if (confirm("Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.")) {
+                // Réinitialiser les données
+                localStorage.removeItem('loanData');
+                
+                // Remettre à zéro l'objet de données
+                loanData.initialAmount = 5000;
+                loanData.remainingAmount = 5000;
+                loanData.payments = [];
+                
+                // Mettre à jour l'interface
+                updateUI();
+                
+                // Afficher une notification
+                showNotification("Toutes les données ont été réinitialisées.", false);
+                
+                // Ajouter le premier paiement
+                addFirstPayment();
+            }
         });
 
         // Mettre à jour l'interface utilisateur
@@ -741,6 +860,9 @@
             if (loanData.remainingAmount <= 0) {
                 document.getElementById('loanStatus').textContent = "Complété";
                 document.getElementById('loanStatus').classList.add('completed');
+            } else {
+                document.getElementById('loanStatus').textContent = "En cours";
+                document.getElementById('loanStatus').classList.remove('completed');
             }
             
             // Calculer la date estimée
@@ -757,6 +879,7 @@
         function updateEstimatedDate() {
             if (loanData.payments.length < 2) {
                 document.getElementById('estimatedDate').textContent = "En attente";
+                document.getElementById('paymentsRemaining').textContent = "—";
                 return;
             }
             
@@ -770,12 +893,19 @@
             // Calculer combien de paiements restants
             const remainingPayments = Math.ceil(loanData.remainingAmount / averagePayment);
             
+            // Si le prêt est entièrement remboursé
+            if (loanData.remainingAmount <= 0) {
+                document.getElementById('estimatedDate').textContent = "Terminé";
+                document.getElementById('paymentsRemaining').textContent = "0";
+                return;
+            }
+            
             // Calculer la période moyenne entre les paiements
             let totalDays = 0;
             for (let i = 1; i < loanData.payments.length; i++) {
                 const currentDate = new Date(loanData.payments[i].date);
                 const previousDate = new Date(loanData.payments[i-1].date);
-                const daysDifference = (currentDate - previousDate) / (1000 * 60 * 60 * 24);
+                const daysDifference = Math.abs((currentDate - previousDate) / (1000 * 60 * 60 * 24));
                 totalDays += daysDifference;
             }
             const averageDays = totalDays / (loanData.payments.length - 1);
@@ -804,6 +934,8 @@
                 }
                 const averagePayment = totalAmount / loanData.payments.length;
                 document.getElementById('averagePayment').textContent = averagePayment.toFixed(2) + '€';
+            } else {
+                document.getElementById('averagePayment').textContent = "—";
             }
         }
 
@@ -881,29 +1013,31 @@
 
         // Sauvegarder les données dans le localStorage
         function saveData() {
-            localStorage.setItem('loanData', JSON.stringify(loanData));
+            try {
+                localStorage.setItem('loanData', JSON.stringify(loanData));
+            } catch (e) {
+                showNotification("Erreur de sauvegarde : " + e.message, true);
+            }
         }
 
         // Charger les données du localStorage
         function loadData() {
-            const savedData = localStorage.getItem('loanData');
-            if (savedData) {
-                const parsedData = JSON.parse(savedData);
-                loanData.initialAmount = parsedData.initialAmount;
-                loanData.remainingAmount = parsedData.remainingAmount;
-                loanData.payments = parsedData.payments;
-                updateUI();
+            try {
+                const savedData = localStorage.getItem('loanData');
+                if (savedData) {
+                    const parsedData = JSON.parse(savedData);
+                    loanData.initialAmount = parsedData.initialAmount;
+                    loanData.remainingAmount = parsedData.remainingAmount;
+                    loanData.payments = parsedData.payments;
+                    updateUI();
+                }
+            } catch (e) {
+                showNotification("Erreur de chargement : " + e.message, true);
             }
         }
 
-        // Sauvegarder à chaque modification
-        function setupAutosave() {
-            setInterval(saveData, 5000);
-        }
-
-        // Charger les données au démarrage
-        loadData();
-        setupAutosave();
+        // Sauvegarder régulièrement les données
+        setInterval(saveData, 5000);
     </script>
 </body>
 </html>
